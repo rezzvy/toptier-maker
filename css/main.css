@@ -24,8 +24,6 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
- 
-
 .tier-list-box-container .tier-list-item ._content .img-list-drag-item {
   width: 140px;
   height: 140px;
@@ -50,15 +48,12 @@
   cursor: pointer;
 }
 
-.tier-list-box-container .tier-list-item ._option:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+.tier-list-box-container .tier-list-item ._option  img{
+  width: 15px;
 }
 
-.tier-list-box-container .tier-list-item ._option::after {
-  content: "Delete";
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: 500;
+.tier-list-box-container .tier-list-item ._option:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-container .img-list-drag {

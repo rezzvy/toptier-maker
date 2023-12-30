@@ -1,0 +1,105 @@
+@media screen and (max-width: 1368px) {
+  .app-wrapper .app-panel:last-child {
+    flex-basis: 400px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  h1 {
+    font-size: 18px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  .text,
+  a,
+  div {
+    font-size: 14px;
+  }
+
+  .app-wrapper .app-panel:last-child {
+    flex-basis: 250px;
+  }
+
+  .app-wrapper {
+    flex-direction: column;
+    max-width: unset;
+    max-height: unset;
+  }
+
+  .app-wrapper .app-panel:first-child,
+  .app-wrapper .app-panel:last-child > div {
+    padding: 15px;
+  }
+
+  .spacing-bottom-30 {
+    margin-bottom: 15px;
+  }
+
+  .tier-list-box-container .tier-list-item ._color {
+    flex-basis: 100px;
+  }
+
+  .tier-list-box-container .tier-list-item ._content {
+    min-height: 100px;
+    overflow: hidden;
+  }
+
+  .tier-list-box-container .tier-list-item ._content .img-list-drag-item,
+  .sidebar-container .img-list-drag .img-list-drag-item img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .app-wrapper .app-panel:last-child > div {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .app-wrapper .app-panel:last-child > div > .app-inner-wrap:last-child,
+  .app-wrapper .app-panel:last-child > div > .app-inner-wrap:first-child {
+    flex: 1;
+  }
+
+  .btn-wrap a,
+  .btn-wrap label {
+    flex: 100%;
+  }
+
+  .btn {
+    padding: 10px 20px;
+  }
+
+  .tier-list-box-container .tier-list-item {
+    overflow: hidden;
+    flex-wrap: nowrap;
+  }
+
+  .tier-list-box-container .tier-list-item ._content {
+    flex-wrap: nowrap;
+    min-width: 180px;
+    overflow-x: auto;
+  }
+
+  .tier-list-box-container .tier-list-item ._content > div {
+    flex-shrink: 0;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .tier-list-box-container .tier-list-item {
+    flex-wrap: wrap;
+  }
+
+  .tier-list-box-container .tier-list-item > div {
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+
+  .app-wrapper .app-panel:last-child > div {
+    flex-direction: column;
+    gap: 5px;
+  }
+}

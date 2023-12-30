@@ -113,7 +113,7 @@ class View {
     div.innerHTML = `
     <div class="_color flex-center" style="--bg-color: ${color}" contenteditable="true" spellcheck="false">${length + 1}</div>
     <div class="_content" ondrop="view.__imgOnDrop(event)" ondragover="view.__imgOnDragOver(event)"></div>
-    <div class="_option flex-center" onclick="view.__removeParentElement(event)"></div>
+    <div class="_option flex-center" onclick="view.__removeParentElement(event)"><img src="./assets/trash.svg"></div>
   `;
 
     this.boardContainer.appendChild(div);
