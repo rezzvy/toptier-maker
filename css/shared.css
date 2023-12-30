@@ -87,10 +87,13 @@ a {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  overflow: hidden;
 }
 
 .app-wrapper .app-panel:last-child > div > .app-inner-wrap:last-child .image-drag-area .img-list-drag {
   flex: 1;
+
+  overflow-y: auto;
 }
 
 .spacing-top-15 {
@@ -115,4 +118,12 @@ img {
 
 .tier-list-box-container .tier-list-item:not(:last-child) {
   border-bottom-width: 0;
+}
+
+.none {
+  display: none;
+}
+
+label {
+  font-weight: 700;
 }
