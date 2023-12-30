@@ -111,7 +111,7 @@ class View {
     const div = document.createElement("div");
     div.classList.add("tier-list-item");
     div.innerHTML = `
-    <div class="_color flex-center" style="--bg-color: ${color}">${length + 1}</div>
+    <div class="_color flex-center" style="--bg-color: ${color}" contenteditable="true" spellcheck="false">${length + 1}</div>
     <div class="_content" ondrop="view.__imgOnDrop(event)" ondragover="view.__imgOnDragOver(event)"></div>
     <div class="_option flex-center"></div>
   `;

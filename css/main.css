@@ -10,6 +10,8 @@
   flex-basis: 140px;
   font-weight: 700;
   font-size: 24px;
+  word-break: break-word;
+  text-align: center;
 }
 
 .tier-list-box-container .tier-list-item ._content {
