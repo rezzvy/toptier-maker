@@ -48,17 +48,18 @@ class View {
   constructor() {
     this.addBoardButton = document.getElementById("add-board-btn");
     this.boardContainer = document.querySelector(".tier-list-box-container");
-
     this.uploadImageContainer = document.querySelector(".img-list-drag");
     this.uploadImageInput = document.getElementById("input-image");
-
     this.colors = ["#ff7777", "#ffee77", "#77ff7d", "#77a3ff", "#a777ff", "#f277ff"];
-
     this.exportButton = document.getElementById("export-btn");
     this.importFileInput = document.getElementById("import-project");
-
     this.projectTitleElement = document.querySelector(".tier-list-title");
     this.projectDescriptionElement = document.querySelector(".tier-list-description");
+  }
+
+  import(projectData) {
+    this.boardContainer.innerHTML = projectData.board;
+    this.uploadImageContainer.innerHTML = projectData.imgList;
   }
 
   getBoardContent() {
@@ -69,26 +70,16 @@ class View {
     return document.querySelector(".img-list-drag").innerHTML;
   }
 
-  import(projectData) {
-    this.boardContainer.innerHTML = projectData.board;
-    this.uploadImageContainer.innerHTML = projectData.imgList;
-  }
-
   getRandomColor() {
     return this.colors[Math.floor(Math.random() * this.colors.length)];
   }
 
   generateImageListCard(imgSrc) {
-    const div = document.createElement("div");
-    div.classList.add("img-list-drag-item");
-    div.innerHTML = `<img src="${imgSrc}" />`;
-
-    div.ondragstart = function (e) {
-      e.dataTransfer.setData("text", imgSrc);
-    };
-
-    div.draggable = true;
-    this.uploadImageContainer.append(div);
+    this.uploadImageContainer.innerHTML += `
+    <div class="img-list-drag-item" ondragstart="view.__imgDragStart(event)" draggable="true">
+        <img src="${imgSrc}" />
+    </div>
+    `;
   }
 
   generateBoard() {
@@ -97,36 +88,29 @@ class View {
 
     const div = document.createElement("div");
     div.classList.add("tier-list-item");
+    div.innerHTML = `
+    <div class="_color flex-center" style="--bg-color: ${color}">${length + 1}</div>
+    <div class="_content" ondrop="view.__imgOnDrop(event)" ondragover="view.__imgOnDragOver(event)"></div>
+    <div class="_option flex-center"></div>
+  `;
 
-    const divChildColor = document.createElement("div");
-    divChildColor.classList.add("_color", "flex-center");
-    divChildColor.style.setProperty("--bg-color", color);
-    divChildColor.textContent = length + 1;
-    div.appendChild(divChildColor);
+    this.boardContainer.appendChild(div);
+  }
 
-    const divChildContent = document.createElement("div");
-    divChildContent.classList.add("_content");
-    div.appendChild(divChildContent);
+  __imgOnDrop(e) {
+    const target = e.dataTransfer.getData("text");
+    const targetElement = document.querySelector(`[src="${target}"]`).parentElement;
 
-    divChildContent.ondrop = function (e) {
-      const target = e.dataTransfer.getData("text");
-      const targetElement = document.querySelector(`[src="${target}"]`).parentElement;
+    e.currentTarget.appendChild(targetElement);
+  }
 
-      if (targetElement.parentElement.parentElement.isEqualNode(e.currentTarget.parentElement)) return console.log("aa");
+  __imgDragStart(e) {
+    const imgSrc = e.currentTarget.firstElementChild.src;
+    e.dataTransfer.setData("text", imgSrc);
+  }
 
-      e.currentTarget.appendChild(targetElement);
-    };
-
-    divChildContent.ondragover = function (e) {
-      e.preventDefault();
-    };
-
-    const divChildDelete = document.createElement("div");
-    divChildDelete.classList.add("_option", "flex-center");
-    divChildDelete.textContent = "A";
-    div.appendChild(divChildDelete);
-
-    this.boardContainer.append(div);
+  __imgOnDragOver(e) {
+    e.preventDefault();
   }
 }
 
@@ -140,15 +124,6 @@ class Controller {
     for (let i = 0; i < 4; i++) {
       this.view.generateBoard();
     }
-
-    this.view.uploadImageContainer.ondragover = function (e) {
-      e.preventDefault();
-    };
-
-    this.view.uploadImageContainer.ondrop = function (e) {
-      const target = e.dataTransfer.getData("text");
-      e.currentTarget.appendChild(document.querySelector(`[src="${target}"]`).parentElement);
-    };
 
     this.view.addBoardButton.addEventListener("click", (e) => {
       this.view.generateBoard();
