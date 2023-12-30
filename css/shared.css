@@ -23,7 +23,8 @@ a {
   gap: 5px;
 }
 
-.btn-wrap a {
+.btn-wrap a,
+.btn-wrap label {
   flex: 1;
 }
 

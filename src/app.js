@@ -8,6 +8,18 @@ class Model {
     };
   }
 
+  importData(json, callback) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      this.projectData = JSON.parse(e.target.result);
+
+      callback(this.projectData);
+    };
+
+    reader.readAsText(json);
+  }
+
   exportData() {
     const blob = new Blob([JSON.stringify(this.projectData)], { type: "application/json" });
     return URL.createObjectURL(blob);
@@ -43,9 +55,23 @@ class View {
     this.colors = ["#ff7777", "#ffee77", "#77ff7d", "#77a3ff", "#a777ff", "#f277ff"];
 
     this.exportButton = document.getElementById("export-btn");
+    this.importFileInput = document.getElementById("import-project");
 
     this.projectTitleElement = document.querySelector(".tier-list-title");
     this.projectDescriptionElement = document.querySelector(".tier-list-description");
+  }
+
+  getBoardContent() {
+    return document.querySelector(".tier-list-box-container").innerHTML;
+  }
+
+  getImageListContent() {
+    return document.querySelector(".img-list-drag").innerHTML;
+  }
+
+  import(projectData) {
+    this.boardContainer.innerHTML = projectData.board;
+    this.uploadImageContainer.innerHTML = projectData.imgList;
   }
 
   getRandomColor() {
@@ -135,7 +161,13 @@ class Controller {
     });
 
     this.view.exportButton.addEventListener("click", (e) => {
-      this.exportHandler(e);
+      this.exportHandler();
+    });
+
+    this.view.importFileInput.addEventListener("input", (e) => {
+      this.model.importData(e.currentTarget.files[0], (e) => {
+        this.view.import(e);
+      });
     });
   }
 
@@ -150,8 +182,8 @@ class Controller {
 
     this.model.projectData.title = this.view.projectTitleElement.textContent;
     this.model.projectData.description = this.view.projectDescriptionElement.textContent;
-    this.model.projectData.board = this.view.boardContainer.innerHTML;
-    this.model.projectData.imgList = this.view.uploadImageContainer.innerHTML;
+    this.model.projectData.board = this.view.getBoardContent();
+    this.model.projectData.imgList = this.view.getImageListContent();
 
     const anchor = document.createElement("a");
     anchor.href = this.model.exportData();

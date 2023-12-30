@@ -32,7 +32,7 @@
             <h2 class="spacing-bottom-15">Project</h2>
 
             <div class="btn-wrap">
-              <a href="#" class="btn btn-dark">Import</a>
+              <label for="import-project" class="btn btn-dark">Import</label>
               <a href="#" class="btn btn-dark" id="export-btn">Export</a>
             </div>
           </div>
@@ -42,7 +42,7 @@
 
             <div class="image-drag-area">
               <label for="input-image" class="btn btn-primary btn-full">Add</label>
-              <input type="file" class="none" id="input-image" accept="image/*" />
+
               <div class="img-list-drag"></div>
             </div>
           </div>
@@ -50,6 +50,8 @@
       </div>
     </div>
 
+    <input type="file" class="none" id="input-image" accept="image/*" />
+    <input type="file" class="none" id="import-project" accept=".json" />
     <script src="./src/app.js"></script>
   </body>
 </html>
