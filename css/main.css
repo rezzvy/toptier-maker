@@ -44,6 +44,17 @@
   height: inherit;
 }
 
+.tier-list-box-container .tier-list-item ._option {
+  cursor: pointer;
+}
+
+.tier-list-box-container .tier-list-item ._option::after {
+  content: "Delete";
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+}
+
 .sidebar-container .img-list-drag {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

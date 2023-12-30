@@ -113,7 +113,7 @@ class View {
     div.innerHTML = `
     <div class="_color flex-center" style="--bg-color: ${color}" contenteditable="true" spellcheck="false">${length + 1}</div>
     <div class="_content" ondrop="view.__imgOnDrop(event)" ondragover="view.__imgOnDragOver(event)"></div>
-    <div class="_option flex-center"></div>
+    <div class="_option flex-center" onclick="view.__removeParentElement(event)"></div>
   `;
 
     this.boardContainer.appendChild(div);
@@ -145,6 +145,15 @@ class View {
 
   __imgOnDragOver(e) {
     e.preventDefault();
+  }
+
+  __removeParentElement(e) {
+    if (e.currentTarget.previousElementSibling.children.length !== 0) {
+      const dialog = window.confirm("This is not empty, are you sure want to delete?");
+      return dialog ? e.currentTarget.parentElement.remove() : "";
+    }
+
+    e.currentTarget.parentElement.remove();
   }
 }
 
