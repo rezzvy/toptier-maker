@@ -66,6 +66,7 @@ a {
 .app-wrapper .app-panel:first-child {
   padding: 30px;
   flex: 1;
+  overflow-y: auto;
 }
 
 .app-wrapper .app-panel:last-child {
