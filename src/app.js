@@ -8,12 +8,20 @@ class Model {
     };
   }
 
+  setProjectData(obj) {
+    const { title, description, board, imgList } = obj;
+
+    this.projectData.title = title;
+    this.projectData.description = description;
+    this.projectData.board = board;
+    this.projectData.imgList = imgList;
+  }
+
   importData(json, callback) {
     const reader = new FileReader();
 
     reader.onload = function (e) {
       this.projectData = JSON.parse(e.target.result);
-
       callback(this.projectData);
     };
 
@@ -23,24 +31,6 @@ class Model {
   exportData() {
     const blob = new Blob([JSON.stringify(this.projectData)], { type: "application/json" });
     return URL.createObjectURL(blob);
-  }
-
-  convertImage(blob, callback) {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-
-    const img = document.createElement("img");
-    img.src = blob;
-
-    img.onload = function (e) {
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      ctx.drawImage(img, 0, 0);
-
-      const newImgSource = canvas.toDataURL("image/webp");
-
-      callback(newImgSource);
-    };
   }
 }
 
@@ -55,6 +45,38 @@ class View {
     this.importFileInput = document.getElementById("import-project");
     this.projectTitleElement = document.querySelector(".tier-list-title");
     this.projectDescriptionElement = document.querySelector(".tier-list-description");
+  }
+
+  convertImages(callback) {
+    const convert = (blob, convertCompleteCallback) => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      const img = document.createElement("img");
+
+      img.src = blob;
+      img.onload = function (e) {
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        ctx.drawImage(img, 0, 0);
+
+        const newImgSource = canvas.toDataURL("image/webp");
+        convertCompleteCallback(newImgSource);
+      };
+    };
+
+    const imgs = document.querySelectorAll(".img-list-drag-item img");
+    let conversionCounter = 0;
+
+    for (let i = 0; i < imgs.length; i++) {
+      convert(imgs[i].src, (source) => {
+        imgs[i].src = source;
+        conversionCounter++;
+
+        if (conversionCounter === imgs.length) {
+          callback();
+        }
+      });
+    }
   }
 
   import(projectData) {
@@ -97,6 +119,18 @@ class View {
     this.boardContainer.appendChild(div);
   }
 
+  generateGhostAnchor(src, downloadTitle) {
+    const anchor = document.createElement("a");
+    anchor.href = src;
+    anchor.download = downloadTitle;
+
+    anchor.click();
+
+    setTimeout(() => {
+      anchor.remove();
+    }, 1000);
+  }
+
   __imgOnDrop(e) {
     const target = e.dataTransfer.getData("text");
     const targetElement = document.querySelector(`[src="${target}"]`).parentElement;
@@ -125,14 +159,12 @@ class Controller {
       this.view.generateBoard();
     }
 
-    this.view.addBoardButton.addEventListener("click", (e) => {
+    this.view.addBoardButton.addEventListener("click", () => {
       this.view.generateBoard();
     });
 
     this.view.uploadImageInput.addEventListener("change", (e) => {
-      const blob = URL.createObjectURL(e.target.files[0]);
-
-      this.view.generateImageListCard(blob);
+      this.uploadImageHandler(e);
     });
 
     this.view.exportButton.addEventListener("click", (e) => {
@@ -140,31 +172,33 @@ class Controller {
     });
 
     this.view.importFileInput.addEventListener("input", (e) => {
-      this.model.importData(e.currentTarget.files[0], (e) => {
-        this.view.import(e);
-      });
+      this.importHandler(e);
     });
   }
 
-  exportHandler(e) {
-    const imgs = document.querySelectorAll(".img-list-drag-item img");
+  uploadImageHandler(e) {
+    this.view.generateImageListCard(URL.createObjectURL(e.target.files[0]));
+  }
 
-    for (let i = 0; i < imgs.length; i++) {
-      this.model.convertImage(imgs[i].src, (e) => {
-        imgs[i].src = e;
+  importHandler(e) {
+    this.model.importData(e.currentTarget.files[0], (e) => {
+      this.view.import(e);
+    });
+  }
+
+  exportHandler() {
+    const convertImageCompleteCallback = () => {
+      this.model.setProjectData({
+        title: this.view.projectTitleElement.textContent,
+        description: this.view.projectDescriptionElement.textContent,
+        board: this.view.getBoardContent(),
+        imgList: this.view.getImageListContent(),
       });
-    }
 
-    this.model.projectData.title = this.view.projectTitleElement.textContent;
-    this.model.projectData.description = this.view.projectDescriptionElement.textContent;
-    this.model.projectData.board = this.view.getBoardContent();
-    this.model.projectData.imgList = this.view.getImageListContent();
+      this.view.generateGhostAnchor(this.model.exportData(), this.model.projectData.title);
+    };
 
-    const anchor = document.createElement("a");
-    anchor.href = this.model.exportData();
-    anchor.download = `tier-list-${this.view.projectTitleElement.textContent}`;
-
-    anchor.click();
+    this.view.convertImages(convertImageCompleteCallback);
   }
 }
 
