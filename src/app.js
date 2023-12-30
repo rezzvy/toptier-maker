@@ -1,5 +1,35 @@
 class Model {
-  constructor() {}
+  constructor() {
+    this.projectData = {
+      title: "",
+      description: "",
+      board: "",
+      imgList: "",
+    };
+  }
+
+  exportData() {
+    const blob = new Blob([JSON.stringify(this.projectData)], { type: "application/json" });
+    return URL.createObjectURL(blob);
+  }
+
+  convertImage(blob, callback) {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const img = document.createElement("img");
+    img.src = blob;
+
+    img.onload = function (e) {
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      ctx.drawImage(img, 0, 0);
+
+      const newImgSource = canvas.toDataURL("image/webp");
+
+      callback(newImgSource);
+    };
+  }
 }
 
 class View {
@@ -11,6 +41,11 @@ class View {
     this.uploadImageInput = document.getElementById("input-image");
 
     this.colors = ["#ff7777", "#ffee77", "#77ff7d", "#77a3ff", "#a777ff", "#f277ff"];
+
+    this.exportButton = document.getElementById("export-btn");
+
+    this.projectTitleElement = document.querySelector(".tier-list-title");
+    this.projectDescriptionElement = document.querySelector(".tier-list-description");
   }
 
   getRandomColor() {
@@ -98,6 +133,31 @@ class Controller {
 
       this.view.generateImageListCard(blob);
     });
+
+    this.view.exportButton.addEventListener("click", (e) => {
+      this.exportHandler(e);
+    });
+  }
+
+  exportHandler(e) {
+    const imgs = document.querySelectorAll(".img-list-drag-item img");
+
+    for (let i = 0; i < imgs.length; i++) {
+      this.model.convertImage(imgs[i].src, (e) => {
+        imgs[i].src = e;
+      });
+    }
+
+    this.model.projectData.title = this.view.projectTitleElement.textContent;
+    this.model.projectData.description = this.view.projectDescriptionElement.textContent;
+    this.model.projectData.board = this.view.boardContainer.innerHTML;
+    this.model.projectData.imgList = this.view.uploadImageContainer.innerHTML;
+
+    const anchor = document.createElement("a");
+    anchor.href = this.model.exportData();
+    anchor.download = `tier-list-${this.view.projectTitleElement.textContent}`;
+
+    anchor.click();
   }
 }
 
