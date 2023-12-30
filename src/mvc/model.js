@@ -1,4 +1,4 @@
-export default class Model {
+class Model {
   constructor() {
     this.projectData = {
       title: "",
@@ -33,3 +33,5 @@ export default class Model {
     return URL.createObjectURL(blob);
   }
 }
+
+export default Model;
