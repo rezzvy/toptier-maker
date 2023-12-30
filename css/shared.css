@@ -110,6 +110,7 @@ a {
 
 img {
   object-fit: cover;
+  pointer-events: none;
 }
 
 .text-center {

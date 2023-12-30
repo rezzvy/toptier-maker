@@ -2,7 +2,6 @@
   display: flex;
   flex-wrap: wrap;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  min-height: 140px;
 }
 
 .tier-list-box-container .tier-list-item ._color {
@@ -18,13 +17,19 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  min-height: 140px;
   padding: 0 1px;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.tier-list-box-container .tier-list-item ._content img {
+.tier-list-box-container .tier-list-item ._content .img-list-drag-item {
   width: 140px;
   height: 140px;
+}
+
+.tier-list-box-container .tier-list-item ._content .img-list-drag-item img {
+  width: 100%;
+  height: 100%;
 }
 
 .tier-list-box-container .tier-list-item ._color,
@@ -46,7 +51,6 @@
   background-color: rgba(0, 0, 0, 0.1);
   padding: 15px;
   text-align: center;
- 
 }
 
 .sidebar-container .img-list-drag .img-list-drag-item {
