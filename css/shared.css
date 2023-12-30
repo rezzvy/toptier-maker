@@ -45,8 +45,16 @@ a {
   background-color: rgb(48, 138, 255);
 }
 
+.btn-primary:hover {
+  background-color: rgb(36, 115, 219);
+}
+
 .btn-dark {
   background-color: rgba(0, 0, 0, 0.45);
+}
+
+.btn-dark:hover {
+  background-color: rgba(0, 0, 0, 0.25);
 }
 
 .flex-center {
@@ -127,10 +135,22 @@ img {
 }
 
 label {
+  cursor: pointer;
   font-weight: 700;
 }
 
+[contenteditable="true"] {
+  border: 2px dashed transparent;
+}
+
+[contenteditable="true"]:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 [contenteditable="true"]:focus {
-  border: 4px dashed rgba(255, 255, 255, 0.75);
+  cursor: text;
+  border-color: rgba(255, 255, 255, 0.75);
+  background-color: unset;
   outline: none;
 }

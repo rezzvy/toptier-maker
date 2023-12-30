@@ -24,6 +24,8 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+ 
+
 .tier-list-box-container .tier-list-item ._content .img-list-drag-item {
   width: 140px;
   height: 140px;
@@ -46,6 +48,10 @@
 
 .tier-list-box-container .tier-list-item ._option {
   cursor: pointer;
+}
+
+.tier-list-box-container .tier-list-item ._option:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .tier-list-box-container .tier-list-item ._option::after {
