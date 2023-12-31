@@ -48,14 +48,14 @@
             <div class="image-drag-area">
               <label for="input-image" class="btn btn-primary btn-full">Add</label>
 
-              <div class="img-list-drag" ondrop="__imgOnDrop(event)" ondragover="__imgOnDragOver(event)"></div>
+              <div class="img-list-drag" ondragenter="__dragEnter(event)" ondragleave="__dragLeave(event)" ondrop="__imgOnDrop(event)" ondragover="__imgOnDragOver(event)"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <input type="file" class="none" id="input-image" accept="image/*" multiple/>
+    <input type="file" class="none" id="input-image" accept="image/*" multiple />
     <input type="file" class="none" id="import-project" accept=".json" />
 
     <script src="./src/init.js"></script>

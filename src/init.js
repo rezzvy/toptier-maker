@@ -1,8 +1,17 @@
+function __dragEnter(e) {
+  e.currentTarget.classList.add("drag-hover");
+}
+
+function __dragLeave(e) {
+  e.currentTarget.classList.remove("drag-hover");
+}
+
 function __imgOnDrop(e) {
   const target = e.dataTransfer.getData("text");
   const targetElement = document.querySelector(`[src="${target}"]`).parentElement;
 
   e.currentTarget.appendChild(targetElement);
+  e.currentTarget.classList.remove("drag-hover");
 }
 
 function __imgDragStart(e) {

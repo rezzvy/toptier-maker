@@ -19,9 +19,14 @@ class View {
 
       img.src = blob;
       img.onload = function (e) {
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        ctx.drawImage(img, 0, 0);
+        const baseWidth = 140;
+        const aspectRatio = img.naturalWidth / img.naturalHeight;
+        const height = baseWidth / aspectRatio;
+
+        canvas.width = baseWidth;
+        canvas.height = height;
+
+        ctx.drawImage(img, 0, 0, baseWidth, height);
 
         const newImgSource = canvas.toDataURL("image/webp");
         convertCompleteCallback(newImgSource);
@@ -78,7 +83,7 @@ class View {
     div.classList.add("tier-list-item");
     div.innerHTML = `
       <div class="_color flex-center" style="--bg-color: ${color}" contenteditable="true" spellcheck="false">${length + 1}</div>
-      <div class="_content" ondrop="__imgOnDrop(event)" ondragover="__imgOnDragOver(event)"></div>
+      <div class="_content" ondragenter="__dragEnter(event)" ondragleave="__dragLeave(event)" ondrop="__imgOnDrop(event)" ondragover="__imgOnDragOver(event)"></div>
       <div class="_option flex-center" onclick="__removeParentElement(event)"><img src="./assets/trash.svg"></div>
     `;
 
