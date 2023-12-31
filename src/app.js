@@ -11,3 +11,4 @@ function init() {
 }
 
 document.addEventListener("DOMContentLoaded", init);
+window.addEventListener("resize", fitScreen);

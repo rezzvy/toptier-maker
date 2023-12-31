@@ -37,3 +37,10 @@ function __removeParentElement(e) {
 function __deleteParent(event) {
   event.currentTarget.parentElement.remove();
 }
+
+const container = document.querySelector(".app-wrapper");
+function fitScreen() {
+  container.style.setProperty("--screen-height", window.innerHeight + "px");
+}
+
+fitScreen();
