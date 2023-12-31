@@ -71,6 +71,7 @@ class View {
     this.uploadImageContainer.innerHTML += `
       <div class="img-list-drag-item" ondragstart="__imgDragStart(event)" draggable="true">
           <img src="${imgSrc}" />
+          <div class="delete-img-list-btn" onclick="__deleteParent(event)"><img src="./assets/trash.svg"></div>
       </div>
       `;
   }

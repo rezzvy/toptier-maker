@@ -23,7 +23,7 @@ Alternatively, you can play using our provided demo by clicking [this link](http
 ## TODO
 
 - [ ] Add error handler.
-- [ ] Implement functionality to delete added images.
+- [x] Implement functionality to delete added images.
 
 ## Author
 

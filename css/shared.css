@@ -157,3 +157,34 @@ label {
 .drag-hover {
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
+
+.img-list-drag-item {
+  position: relative;
+  cursor: grab;
+}
+
+.img-list-drag-item:hover .delete-img-list-btn {
+  display: block;
+}
+
+.img-list-drag-item .delete-img-list-btn {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  background-color: rgb(200, 0, 0);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.img-list-drag-item .delete-img-list-btn:hover {
+  background-color: rgba(200, 0, 0, 0.6);
+}
+
+.img-list-drag-item .delete-img-list-btn img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+}
