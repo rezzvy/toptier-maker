@@ -44,6 +44,8 @@ class View {
   }
 
   import(projectData) {
+    this.projectTitleElement.textContent = projectData.title;
+    this.projectDescriptionElement.textContent = projectData.description;
     this.boardContainer.innerHTML = projectData.board;
     this.uploadImageContainer.innerHTML = projectData.imgList;
   }

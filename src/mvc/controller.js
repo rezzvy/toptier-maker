@@ -27,7 +27,9 @@ class Controller {
   }
 
   uploadImageHandler(e) {
-    this.view.generateImageListCard(URL.createObjectURL(e.target.files[0]));
+    for (const file of e.currentTarget.files) {
+      this.view.generateImageListCard(URL.createObjectURL(file));
+    }
   }
 
   importHandler(e) {

@@ -1,3 +1,5 @@
+![Preview](https://repository-images.githubusercontent.com/737382485/87ef9acb-4195-423c-a1a8-13fa98f31fd6)
+
 # Toptier Maker
 
 Web-based Tier Lists Maker app with full functionality and minimalist design.
