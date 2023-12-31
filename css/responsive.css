@@ -86,6 +86,11 @@
   .tier-list-box-container .tier-list-item ._content > div {
     flex-shrink: 0;
   }
+
+  .app-wrapper .app-panel:last-child > div > .app-inner-wrap:last-child .image-drag-area .img-list-drag {
+    display: flex;
+    flex-wrap: nowrap;
+  }
 }
 
 @media screen and (max-width: 300px) {

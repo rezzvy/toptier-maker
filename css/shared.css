@@ -101,8 +101,7 @@ a {
 
 .app-wrapper .app-panel:last-child > div > .app-inner-wrap:last-child .image-drag-area .img-list-drag {
   flex: 1;
-
-  overflow-y: auto;
+  overflow: auto;
 }
 
 .spacing-top-15 {
